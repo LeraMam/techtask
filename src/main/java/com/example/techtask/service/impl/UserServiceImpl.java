@@ -16,20 +16,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser() {
-        //TODO: Возвращать пользователя с максимальной общей суммой товаров, доставленных в 2003
-        String query = "SELECT u FROM User u JOIN u.orders o WHERE o.orderStatus = 'DELIVERED' AND " +
-                "YEAR(o.createdAt) = 2023 " +
-                "GROUP BY u.id " +
-                "ORDER BY SUM(o.price * o.quantity) DESC LIMIT 1";
+        String query = "SELECT u FROM User u JOIN u.orders o " +
+                "WHERE o.orderStatus = 'DELIVERED' AND YEAR(o.createdAt) = 2023 " +
+                "GROUP BY u.id ORDER BY SUM(o.price * o.quantity) DESC LIMIT 1";
         TypedQuery<User> q = entityManager.createQuery(query, User.class);
         return q.getSingleResult();
     }
 
     @Override
     public List<User> findUsers() {
-        //TODO: Возвращать пользователей у которых есть оплаченные заказы в 2010.
-        String query = "SELECT u FROM User u JOIN u.orders o WHERE o.orderStatus = 'PAID' AND " +
-                "YEAR(o.createdAt) = 2010";
+        String query = "SELECT u FROM User u JOIN u.orders o " +
+                "WHERE o.orderStatus = 'PAID' AND YEAR(o.createdAt) = 2010";
         TypedQuery<User> q = entityManager.createQuery(query, User.class);
         return q.getResultList();
     }
