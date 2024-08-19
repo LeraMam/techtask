@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUser() {
         String query = "SELECT u FROM User u JOIN u.orders o " +
-                "WHERE o.orderStatus = 'DELIVERED' AND YEAR(o.createdAt) = 2023 " +
+                "WHERE o.orderStatus = 'DELIVERED' AND YEAR(o.createdAt) = 2003 " +
                 "GROUP BY u.id ORDER BY SUM(o.price * o.quantity) DESC LIMIT 1";
         TypedQuery<User> q = entityManager.createQuery(query, User.class);
         return q.getSingleResult();
